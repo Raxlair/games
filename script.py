@@ -19,28 +19,26 @@ class Player(Character):
         elif keys[pygame.K_s]:
             self.y = self.y + playerSpeed
         
-        playerIcon = pygame.image.load("images/player.png")
+        playerIcon = pygame.image.load("images/player.png").convert()
+        playerIcon = pygame.transform.scale(playerIcon ,(350, 237.5)) #change size of player
         screen.blit(playerIcon,(self.x,self.y))
 
     def checkDeath(self):
-        if player.x == enemy.x and player.y == enemy.y:
+        if player.x == enemy1.x and player.y == enemy1.y:
             print("you are dead")
 
 class Enemy(Character):
-    def spawn(self):
-        for x in range(random.randint(5,10)):
-            self.x=random.randint(0,1920)
-            self.y=random.randint(0,1080)
-            enemyIconOriginal = pygame.image.load("images/evil.png").convert_alpha()
-            enemyIcon = pygame.transform.scale(enemyIconOriginal, (random.randint(50, 1000), random.randint(50, 1000)))
-            screen.blit(enemyIcon,(self.x,self.y))
-
-player = Player()
-enemy = Enemy()
+    def __init__(self):
+        self.x=random.randint(0,1800)
+        self.y=random.randint(0,980)
+        self.enemyIconOriginal = pygame.image.load("images/evil.png").convert_alpha()
+        self.enemyIcon = pygame.transform.scale(self.enemyIconOriginal, (random.randint(25, 200), random.randint(25, 200))) #change size of enemy
+        
+    def draw(self):
+        screen.blit(self.enemyIcon,(self.x,self.y))
 
 #initialise pygame
 pygame.init()
-
 #start game window
 screen = pygame.display.set_mode((400, 400), pygame.RESIZABLE)
 pygame.display.set_caption("Pygame")
@@ -54,11 +52,12 @@ bg = pygame.image.load("images/cat.png").convert()
 bg = pygame.transform.scale(bg ,(1920,1080))
 
 screen.blit(bg,(0,0)) 
-enemy.spawn()
 pygame.display.update()
 
-enemy.spawn()
-pygame.display.update()
+player = Player()
+enemy1 = Enemy()
+enemy2 = Enemy()
+enemy3 = Enemy()
 
 running = True
 while running:
@@ -68,7 +67,9 @@ while running:
 
     screen.blit(bg,(0,0))    
     player.Movement(30)
-    #enemy.spawn()
+    enemy1.draw()
+    enemy2.draw()
+    enemy3.draw()
     pygame.display.update()
 
     player.checkDeath()
