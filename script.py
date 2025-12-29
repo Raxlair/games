@@ -1,3 +1,4 @@
+from pygame import mixer
 import pygame
 import random
 
@@ -36,6 +37,10 @@ class Player(Character):
     def checkDeath(self):
         if self.health <= 0:
             self.death = True
+            mixer.music.load("audio/death.mp3")
+            mixer.music.set_volume(1)
+            mixer.music.play()
+            
             while self.death == True:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -43,6 +48,9 @@ class Player(Character):
                     
                     if self.score > self.highscore:
                         self.highscore = self.score
+                        mixer.music.load("audio/yay.mp3")
+                        mixer.music.set_volume(1)
+                        mixer.music.play()
                 
                     screen.fill((0, 0, 0))
                     textSurface = Font.render("You are dead", True, (255, 255, 255))
@@ -52,7 +60,7 @@ class Player(Character):
                     textSurface = Font.render(f"High Score: {self.highscore}", True, (255, 255, 255))
                     screen.blit(textSurface, (800, 500))       
                     pygame.display.update()
-                    
+
                     keys = pygame.key.get_pressed() 
                     if keys[pygame.K_RETURN]: 
                         #return values to base values
@@ -60,8 +68,7 @@ class Player(Character):
                         self.x=500
                         self.y=500
                         self.health = 100
-                        self.score = 0
-                        
+                        self.score = 0                        
 
     def showHealth(self):
         xHealth = 1700
@@ -73,11 +80,16 @@ class Player(Character):
     def showScore(self):
         xScore = 50
         yScore = 50
+        yHighscore = 100
 
         textSurface = Font.render(f"{self.score} points", True, (255, 255, 255))
         screen.blit(textSurface, (xScore, yScore))    
         
         self.score = self.score + 1
+
+        textSurface = Font.render(f"Current Highscore: {self.highscore} points", True, (255, 255, 255))
+        screen.blit(textSurface, (xScore, yHighscore))   
+
 
 class Enemy(Character):
     def __init__(self):
@@ -91,9 +103,11 @@ class Enemy(Character):
         self.enemyIcon = pygame.transform.scale(self.enemyIconOriginal, (self.height, self.width)) #change size of enemy
         screen.blit(self.enemyIcon,(self.x,self.y))
 
-    def movement(self, enemySpeed):
+    def movement(self):
         self.xDestination = player.x
         self.yDestination = player.y
+
+        enemySpeed = player.score/50
 
         if self.x < self.xDestination:
             self.x = self.x + enemySpeed
@@ -107,7 +121,10 @@ class Enemy(Character):
     def attack(self, damage, range):
         if (player.x - range <= self.x <= player.x + range and player.y - range <= self.y <= player.y + range):
             player.health = player.health - damage
-    
+            mixer.music.load("audio/damage.mp3")
+            mixer.music.set_volume(1)
+            mixer.music.play()
+
     def reset(self):
         if player.health <= 0:
             self.x=random.randint(0,1800)
@@ -115,8 +132,9 @@ class Enemy(Character):
             self.height = random.randint(25, 200)
             self.width = random.randint(25, 200)
 
-#initialise pygame
+#initialise pygame and mixer
 pygame.init()
+mixer.init()
 #start game window
 screen = pygame.display.set_mode((960, 540), pygame.RESIZABLE)
 pygame.display.set_caption("stock :?")
@@ -154,12 +172,12 @@ while running:
     player.Movement(40)
     
     enemy1.draw()
-    enemy1.movement(10)
-    enemy1.attack(5,50)
+    enemy1.movement()
+    enemy1.attack(5,100)
 
     enemy2.draw()
-    enemy2.movement(10)
-    enemy2.attack(5,50)
+    enemy2.movement()
+    enemy2.attack(5,100)
 
     player.showHealth()
     player.showScore()
