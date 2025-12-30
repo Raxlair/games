@@ -59,6 +59,8 @@ class Player(Character):
                     screen.blit(textSurface, (800, 400))
                     textSurface = Font.render(f"High Score: {self.highscore}", True, (255, 255, 255))
                     screen.blit(textSurface, (800, 500))       
+                    textSurface = Font.render(f"Press ENTER to play again", True, (255, 255, 255))
+                    screen.blit(textSurface, (800, 600)) 
                     pygame.display.update()
 
                     keys = pygame.key.get_pressed() 
