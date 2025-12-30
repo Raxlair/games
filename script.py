@@ -107,7 +107,7 @@ class Enemy(Character):
         self.xDestination = player.x
         self.yDestination = player.y
 
-        enemySpeed = player.score/50
+        enemySpeed = player.score/25
 
         if self.x < self.xDestination:
             self.x = self.x + enemySpeed
@@ -137,7 +137,7 @@ pygame.init()
 mixer.init()
 #start game window
 screen = pygame.display.set_mode((960, 540), pygame.RESIZABLE)
-pygame.display.set_caption("stock :?")
+pygame.display.set_caption("game :?")
 pygame_icon = pygame.image.load("images/icon.png")
 pygame.display.set_icon(pygame_icon)
 
@@ -173,11 +173,11 @@ while running:
     
     enemy1.draw()
     enemy1.movement()
-    enemy1.attack(5,100)
+    enemy1.attack(5,50)
 
     enemy2.draw()
     enemy2.movement()
-    enemy2.attack(5,100)
+    enemy2.attack(5,50)
 
     player.showHealth()
     player.showScore()
