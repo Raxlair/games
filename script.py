@@ -202,7 +202,7 @@ while running:
 
             enemy1.draw()
             enemy1.movement()
-            enemy1.attack(5,100)
+            enemy1.attack(5,200)
 
             player.showHealth()
             player.showScore()
@@ -224,11 +224,11 @@ while running:
 
             enemy1.draw()
             enemy1.movement()
-            enemy1.attack(5,100)
+            enemy1.attack(5,200)
 
             enemy2.draw()
             enemy2.movement()
-            enemy2.attack(5,100)
+            enemy2.attack(5,200)
 
             player.showHealth()
             player.showScore()
@@ -251,15 +251,15 @@ while running:
 
             enemy1.draw()
             enemy1.movement()
-            enemy1.attack(5,100)
+            enemy1.attack(5,200)
 
             enemy2.draw()
             enemy2.movement()
-            enemy2.attack(5,100)
+            enemy2.attack(5,200)
 
             enemy3.draw()
             enemy3.movement()
-            enemy3.attack(5,100)
+            enemy3.attack(5,200)
 
             player.showHealth()
             player.showScore()
