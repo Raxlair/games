@@ -20,6 +20,9 @@ class Player(Character):
         self.death = False
         self.difficulty = ""
         self.difficultySpeed = 0
+        self.runningMain = False
+        self.runningSecondary = False
+
     
     def Movement(self, playerSpeed):
         keys = pygame.key.get_pressed() 
@@ -62,7 +65,9 @@ class Player(Character):
                     textSurface = Font.render(f"High Score: {self.highscore}", True, (255, 255, 255))
                     screen.blit(textSurface, (800, 500))       
                     textSurface = Font.render(f"Press ENTER to play again", True, (255, 255, 255))
-                    screen.blit(textSurface, (800, 600)) 
+                    screen.blit(textSurface, (800, 600))
+                    textSurface = Font.render(f"Press C to change difficulty", True, (255, 255, 255))
+                    screen.blit(textSurface, (800, 700))  
                     pygame.display.update()
 
                     keys = pygame.key.get_pressed() 
@@ -72,7 +77,16 @@ class Player(Character):
                         self.x=500
                         self.y=500
                         self.health = 100
-                        self.score = 0                        
+                        self.score = 0
+                    elif keys[pygame.K_c]:
+                        self.death = False
+                        self.x=500
+                        self.y=500
+                        self.health = 100
+                        self.score = 0 
+            
+            self.runningSecondary = False 
+            self.difficulty = ""                 
 
     def showHealth(self):
         xHealth = 1700
@@ -116,6 +130,8 @@ class Player(Character):
         if keys[pygame.K_3]:
             self.difficulty = "hard"
             self.difficultySpeed = 10  
+        
+        self.runningSecondary = True
         
 class Enemy(Character):
     def __init__(self):
@@ -182,20 +198,20 @@ enemy1 = Enemy()
 enemy2 = Enemy()
 enemy3 = Enemy()
 
-running = True
+player.runningMain = True
 
-while running:
+while player.runningMain:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            player.running = False
 
     player.selectDifficulty()
 
     if player.difficulty == "easy":
-        while running:
+        while player.runningSecondary:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    pygame.quit()
             
             screen.blit(bg,(0,0))    
             player.Movement(40)
@@ -214,10 +230,10 @@ while running:
         pygame.quit()
     
     elif player.difficulty == "medium":
-        while running:
+        while player.runningSecondary:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    pygame.quit()
             
             screen.blit(bg,(0,0))    
             player.Movement(40)
@@ -237,14 +253,12 @@ while running:
             enemy1.reset()
             enemy2.reset()
             player.checkDeath()
-        
-        pygame.quit()
 
     elif player.difficulty == "hard":
-        while running:
+        while player.runningSecondary:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    pygame.quit()
             
             screen.blit(bg,(0,0))    
             player.Movement(50)
@@ -269,7 +283,5 @@ while running:
             enemy2.reset()
             enemy3.reset()
             player.checkDeath()
-        
-        pygame.quit()
 
 pygame.quit()
