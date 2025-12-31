@@ -225,9 +225,7 @@ while player.runningMain:
 
             pygame.display.update()
             enemy1.reset()
-            player.checkDeath()
-        
-        pygame.quit()
+            player.checkDeath()       
     
     elif player.difficulty == "medium":
         while player.runningSecondary:
