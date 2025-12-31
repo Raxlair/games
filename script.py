@@ -247,7 +247,7 @@ while running:
                     running = False
             
             screen.blit(bg,(0,0))    
-            player.Movement(40)
+            player.Movement(50)
 
             enemy1.draw()
             enemy1.movement()
