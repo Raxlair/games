@@ -78,6 +78,7 @@ class Player(Character):
                         self.y=500
                         self.health = 100
                         self.score = 0
+                    
                     elif keys[pygame.K_c]:
                         self.death = False
                         self.x=500
@@ -85,8 +86,8 @@ class Player(Character):
                         self.health = 100
                         self.score = 0 
             
-            self.runningSecondary = False 
-            self.difficulty = ""                 
+                        self.runningSecondary = False 
+                        self.difficulty = ""                 
 
     def showHealth(self):
         xHealth = 1700
