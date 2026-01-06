@@ -199,12 +199,12 @@ enemy1 = Enemy()
 enemy2 = Enemy()
 enemy3 = Enemy()
 
-player.runningMain = True
+runningMain = True
 
-while player.runningMain:
+while runningMain:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            player.running = False
+            runningMain = False
 
     player.selectDifficulty()
 
