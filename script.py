@@ -28,11 +28,11 @@ class Player(Character):
         keys = pygame.key.get_pressed() 
         if keys[pygame.K_a] or keys[pygame.K_LEFT]: 
             self.x = self.x - playerSpeed
-        if keys[pygame.K_d] or key[pygame.K_RIGHT]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.x = self.x + playerSpeed
-        if keys[pygame.K_w] or key[pygame.K_UP]:
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
             self.y = self.y - playerSpeed
-        if keys[pygame.K_s] or key[pygame.K_DOWN]:
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.y = self.y + playerSpeed
         
         playerIcon = pygame.image.load("images/player.png").convert()
